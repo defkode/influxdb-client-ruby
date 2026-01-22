@@ -58,4 +58,3 @@ jobs:
 
       - name: Run RuboCop
         run: bundle exec rake rubocop
-        if: matrix.ruby-version == '3.4'

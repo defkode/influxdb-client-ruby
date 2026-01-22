@@ -22,9 +22,11 @@
 
 Naming/FileName:
   Exclude:
-    - 'lib/influxdb-client.rb'
-    - 'apis/lib/influxdb-client-apis.rb'
-Metrics/LineLength:
+    - "lib/influxdb-client.rb"
+    - "apis/lib/influxdb-client-apis.rb"
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
   Max: 50
@@ -40,3 +42,27 @@ Metrics/PerceivedComplexity:
   Max: 15
 Metrics/ParameterLists:
   Max: 10
+Style/EmptyLiteral:
+  Enabled: false
+Style/MultilineWhenThen:
+  Enabled: false
+Style/HashEachMethods:
+  Enabled: false
+Style/YodaCondition:
+  Enabled: false
+Style/RedundantAssignment:
+  Enabled: false
+Style/BisectedAttrAccessor:
+  Enabled: false
+Style/CaseLikeIf:
+  Enabled: false
+Style/GlobalStdStream:
+  Enabled: false
+Style/StringConcatenation:
+  Enabled: false
+Style/ExplicitBlockArgument:
+  Enabled: false
+Lint/UselessMethodDefinition:
+  Enabled: false
+Style/RedundantCondition:
+  Enabled: false
