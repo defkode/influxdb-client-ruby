@@ -21,7 +21,7 @@
 require 'test_helper'
 require 'csv'
 
-class WriteApiIntegrationTest < MiniTest::Test
+class WriteApiIntegrationTest < Minitest::Test
   def setup
     WebMock.allow_net_connect!
   end

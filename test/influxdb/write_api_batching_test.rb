@@ -20,7 +20,7 @@
 
 require 'test_helper'
 
-class WriteApiBatchingTest < MiniTest::Test
+class WriteApiBatchingTest < Minitest::Test
   def setup
     WebMock.disable_net_connect!
 
@@ -217,7 +217,7 @@ class WriteApiBatchingTest < MiniTest::Test
   end
 end
 
-class WriteApiRetryStrategyTest < MiniTest::Test
+class WriteApiRetryStrategyTest < Minitest::Test
   def setup
     WebMock.disable_net_connect!
 

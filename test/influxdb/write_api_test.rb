@@ -20,7 +20,7 @@
 
 require 'test_helper'
 
-class WriteApiTest < MiniTest::Test
+class WriteApiTest < Minitest::Test
   def setup
     WebMock.disable_net_connect!
   end
@@ -289,7 +289,7 @@ class WriteApiTest < MiniTest::Test
   end
 end
 
-class PointSettingsTest < MiniTest::Test
+class PointSettingsTest < Minitest::Test
   def setup
     WebMock.disable_net_connect!
 
@@ -326,7 +326,7 @@ class PointSettingsTest < MiniTest::Test
   end
 end
 
-class WriteApiDefaultTagsTest < MiniTest::Test
+class WriteApiDefaultTagsTest < Minitest::Test
   def setup
     WebMock.disable_net_connect!
 

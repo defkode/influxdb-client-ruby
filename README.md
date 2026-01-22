@@ -489,6 +489,14 @@ For detail info see [InfluxDB 1.8 example](examples/influxdb_18_example.rb).
 
 ## Local tests
 
+Using docker-compose:
+```
+docker-compose up -d
+rake test
+docker-compose down
+```
+
+Alternatively, using the shell script:
 ```
 brew install wget # on a mac, if not yet installed!
 bin/influxdb-restart.sh
