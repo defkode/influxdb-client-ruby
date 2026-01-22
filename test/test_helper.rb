@@ -18,6 +18,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+if ENV['CI']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter 'lib/influxdb2/client/models/'
+    add_filter 'test/influxdb'
+  end
+end
+
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)
 require 'influxdb-client'
 
