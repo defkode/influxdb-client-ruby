@@ -42,27 +42,5 @@ Metrics/PerceivedComplexity:
   Max: 15
 Metrics/ParameterLists:
   Max: 10
-Style/EmptyLiteral:
-  Enabled: false
-Style/MultilineWhenThen:
-  Enabled: false
-Style/HashEachMethods:
-  Enabled: false
-Style/YodaCondition:
-  Enabled: false
-Style/RedundantAssignment:
-  Enabled: false
-Style/BisectedAttrAccessor:
-  Enabled: false
-Style/CaseLikeIf:
-  Enabled: false
-Style/GlobalStdStream:
-  Enabled: false
-Style/StringConcatenation:
-  Enabled: false
-Style/ExplicitBlockArgument:
-  Enabled: false
-Lint/UselessMethodDefinition:
-  Enabled: false
-Style/RedundantCondition:
+Style:
   Enabled: false
