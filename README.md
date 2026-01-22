@@ -1,7 +1,6 @@
 # influxdb-client-ruby
 
 [![CircleCI](https://circleci.com/gh/influxdata/influxdb-client-ruby.svg?style=svg)](https://circleci.com/gh/influxdata/influxdb-client-ruby)
-[![codecov](https://codecov.io/gh/influxdata/influxdb-client-ruby/branch/master/graph/badge.svg)](https://codecov.io/gh/influxdata/influxdb-client-ruby)
 [![Gem Version](https://badge.fury.io/rb/influxdb-client.svg)](https://badge.fury.io/rb/influxdb-client)
 [![License](https://img.shields.io/github/license/influxdata/influxdb-client-ruby.svg)](https://github.com/influxdata/influxdb-client-ruby/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues-raw/influxdata/influxdb-client-ruby.svg)](https://github.com/influxdata/influxdb-client-ruby/issues)

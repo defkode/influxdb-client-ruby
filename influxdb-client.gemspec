@@ -52,6 +52,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'minitest-reporters', '~> 1.4'
   spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rubocop', '~> 0.66.0'
-  spec.add_development_dependency 'simplecov-cobertura', '~> 2.1'
   spec.add_development_dependency 'webmock', '~> 3.7'
 end
