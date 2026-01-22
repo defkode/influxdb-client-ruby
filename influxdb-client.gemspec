@@ -54,4 +54,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop', '~> 0.66.0'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'webmock', '~> 3.7'
+
+  if RUBY_VERSION >= '4.0'
+    spec.add_development_dependency 'ostruct'
+  end
 end

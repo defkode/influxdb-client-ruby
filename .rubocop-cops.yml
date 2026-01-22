@@ -22,9 +22,11 @@
 
 Naming/FileName:
   Exclude:
-    - 'lib/influxdb-client.rb'
-    - 'apis/lib/influxdb-client-apis.rb'
-Metrics/LineLength:
+    - "lib/influxdb-client.rb"
+    - "apis/lib/influxdb-client-apis.rb"
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
+Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
   Max: 50
@@ -40,3 +42,5 @@ Metrics/PerceivedComplexity:
   Max: 15
 Metrics/ParameterLists:
   Max: 10
+Style:
+  Enabled: false

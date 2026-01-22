@@ -22,8 +22,11 @@
 
 AllCops:
   Exclude:
-    - 'lib/influxdb2/client/models/**/*'
-    - 'vendor/**/*'
-    - 'apis/**/*'
-    - 'bin/**/*'
+    - "lib/influxdb2/client/models/**/*"
+    - "vendor/**/*"
+    - "apis/**/*"
+    - "bin/**/*"
+    - "examples/**/*"
+    - "test/**/*"
+  SuggestExtensions: false
 inherit_from: ./.rubocop-cops.yml
