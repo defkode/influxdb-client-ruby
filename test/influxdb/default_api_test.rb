@@ -21,7 +21,7 @@
 require 'test_helper'
 require 'influxdb2/client/default_api'
 
-class DefaultApiTest < MiniTest::Test
+class DefaultApiTest < Minitest::Test
   def setup
     @logger = MockLogger.new
     @api = InfluxDB2::DefaultApi.new(options: { logger: @logger })

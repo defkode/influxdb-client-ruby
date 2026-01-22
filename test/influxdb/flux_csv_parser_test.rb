@@ -20,7 +20,7 @@
 
 require 'test_helper'
 
-class FluxCsvParserTest < MiniTest::Test
+class FluxCsvParserTest < Minitest::Test
   def test_multiple_values
     data = "#datatype,string,long,dateTime:RFC3339,dateTime:RFC3339,string,string,string,string,long,long,string\n" \
       "#group,false,false,true,true,true,true,true,true,false,false,false\n" \
@@ -296,7 +296,7 @@ class FluxCsvParserTest < MiniTest::Test
   end
 end
 
-class FluxCsvParserErrorTest < MiniTest::Test
+class FluxCsvParserErrorTest < Minitest::Test
   def test_error
     data = "#datatype,string,string\n" \
       "#group,true,true\n" \

@@ -18,15 +18,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'simplecov'
-SimpleCov.start do
-  add_filter 'lib/influxdb2/client/models/'
-  add_filter 'test/influxdb'
-end
-
-if ENV['CI'] == 'true'
-  require 'simplecov-cobertura'
-  SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+if ENV['CI']
+  require 'simplecov'
+  SimpleCov.start do
+    add_filter 'lib/influxdb2/client/models/'
+    add_filter 'test/influxdb'
+  end
 end
 
 $LOAD_PATH.unshift File.expand_path('../lib', __dir__)

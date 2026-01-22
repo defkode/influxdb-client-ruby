@@ -1,0 +1,60 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:   
+        ruby-version: ['3.2', '3.3', '3.4', '4.0']
+
+    services:
+      influxdb:
+        image: influxdb:latest
+        ports:
+          - 8086:8086
+        env:
+          DOCKER_INFLUXDB_INIT_MODE: setup
+          DOCKER_INFLUXDB_INIT_USERNAME: my-user
+          DOCKER_INFLUXDB_INIT_PASSWORD: my-password
+          DOCKER_INFLUXDB_INIT_ORG: my-org
+          DOCKER_INFLUXDB_INIT_BUCKET: my-bucket
+          DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: my-token
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby ${{ matrix.ruby-version }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+
+      - name: Wait for InfluxDB
+        run: |
+          for i in {1..30}; do
+            curl -s http://localhost:8086/health && break
+            echo "Waiting for InfluxDB..."
+            sleep 2
+          done
+
+      - name: Run tests
+        run: bundle exec rake test
+        env:
+          CI: true
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-ruby-${{ matrix.ruby-version }}
+          path: coverage/
+
+      - name: Run RuboCop
+        run: bundle exec rake rubocop
+        if: matrix.ruby-version == '3.4'

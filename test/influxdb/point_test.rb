@@ -20,7 +20,7 @@
 
 require 'test_helper'
 
-class PointTest < MiniTest::Test
+class PointTest < Minitest::Test
   def test_to_line_protocol
     point_args = InfluxDB2::Point.new(name: 'h2o',
                                       tags: { host: 'aws', region: 'us' },
