@@ -20,7 +20,7 @@
 
 require 'test_helper'
 
-class DeleteApiIntegrationTest < MiniTest::Test
+class DeleteApiIntegrationTest < Minitest::Test
   def setup
     WebMock.allow_net_connect!
 
