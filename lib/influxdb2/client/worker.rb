@@ -25,11 +25,22 @@ module InfluxDB2
     def initialize(api_client, write_options)
       @api_client = api_client
       @write_options = write_options
+      @max_queue_size = write_options.max_queue_size
 
       @queue = Queue.new
       @queue_event = Queue.new
 
       @queue_event.push(true)
+
+      # Reuse WriteRetry instance instead of creating per batch
+      @write_retry = InfluxDB2::WriteRetry.new(
+        api_client: @api_client,
+        max_retries: @write_options.max_retries,
+        exponential_base: @write_options.exponential_base,
+        retry_interval: @write_options.retry_interval,
+        max_retry_delay: @write_options.max_retry_delay,
+        max_retry_time: @write_options.max_retry_time
+      )
 
       @thread_flush = Thread.new do
         until api_client.closed
@@ -54,7 +65,11 @@ module InfluxDB2
           push(item)
         end
       else
-        @queue.push(payload)
+        # Backpressure: wait if queue is full (when max_queue_size > 0)
+        if @max_queue_size > 0
+          sleep 0.01 while @queue.length >= @max_queue_size && !@api_client.closed
+        end
+        @queue.push(payload) unless @api_client.closed
       end
     end
 
@@ -101,21 +116,12 @@ module InfluxDB2
     end
 
     def _write_raw(key, points)
-      write_retry = InfluxDB2::WriteRetry.new(
-        api_client: @api_client,
-        max_retries: @write_options.max_retries,
-        exponential_base: @write_options.exponential_base,
-        retry_interval: @write_options.retry_interval,
-        max_retry_delay: @write_options.max_retry_delay,
-        max_retry_time: @write_options.max_retry_time
-      )
-
       if @write_options.jitter_interval > 0
         jitter_delay = (@write_options.jitter_interval.to_f / 1_000) * rand
         sleep jitter_delay
       end
 
-      write_retry.retry do
+      @write_retry.retry do
         @api_client.write_raw(points.join("\n"), precision: key.precision, bucket: key.bucket, org: key.org)
       end
     end
