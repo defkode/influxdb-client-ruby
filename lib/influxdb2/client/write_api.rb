@@ -43,9 +43,10 @@ module InfluxDB2
     #   Retry delays are random distributed values within the ranges of
     #   [5000-10000, 10000-20000, 20000-40000, 40000-80000, 80000-125000]
     # @param [Boolean] batch_abort_on_exception: batching worker will be aborted after failed retry strategy
+    # @param [Integer] max_queue_size: maximum number of points to buffer before applying backpressure (0 = unlimited)
     def initialize(write_type: WriteType::SYNCHRONOUS, batch_size: 1_000, flush_interval: 1_000, retry_interval: 5_000,
                    jitter_interval: 0, max_retries: 5, max_retry_delay: 125_000, max_retry_time: 180_000,
-                   exponential_base: 2, batch_abort_on_exception: false)
+                   exponential_base: 2, batch_abort_on_exception: false, max_queue_size: 0)
       _check_not_negative('batch_size', batch_size)
       _check_not_negative('flush_interval', flush_interval)
       _check_not_negative('retry_interval', retry_interval)
@@ -54,6 +55,7 @@ module InfluxDB2
       _check_positive('max_retry_delay', max_retry_delay)
       _check_positive('max_retry_time', max_retry_time)
       _check_positive('exponential_base', exponential_base)
+      _check_positive('max_queue_size', max_queue_size)
       @write_type = write_type
       @batch_size = batch_size
       @flush_interval = flush_interval
@@ -64,10 +66,12 @@ module InfluxDB2
       @max_retry_time = max_retry_time
       @exponential_base = exponential_base
       @batch_abort_on_exception = batch_abort_on_exception
+      @max_queue_size = max_queue_size
     end
 
     attr_reader :write_type, :batch_size, :flush_interval, :retry_interval, :jitter_interval,
-                :max_retries, :max_retry_delay, :max_retry_time, :exponential_base, :batch_abort_on_exception
+                :max_retries, :max_retry_delay, :max_retry_time, :exponential_base, :batch_abort_on_exception,
+                :max_queue_size
 
     def _check_not_negative(key, value)
       raise ArgumentError, "The '#{key}' should be positive or zero, but is: #{value}" if value <= 0

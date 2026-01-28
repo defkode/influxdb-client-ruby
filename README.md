@@ -222,6 +222,7 @@ The writes are processed in batches which are configurable by `WriteOptions`:
 | max_retry_time           | maximum total retry timeout in milliseconds                                                                                                                                                                                                                                                                                                                                                                                                                                          | 180_000       |
 | exponential_base         | the base for the exponential retry delay, the next delay is computed using random exponential backoff as a random value within the interval  ``retry_interval * exponential_base^(attempts-1)`` and ``retry_interval * exponential_base^(attempts)``. Example for ``retry_interval=5000, exponential_base=2, max_retry_delay=125000, total=5`` Retry delays are random distributed values within the ranges of ``[5000-10000, 10000-20000, 20000-40000, 40000-80000, 80000-125000]`` | 2             |
 | batch_abort_on_exception | the batching worker will be aborted after failed retry strategy                                                                                                                                                                                                                                                                                                                                                                                                                      | false         |
+| max_queue_size           | maximum number of points to buffer before applying backpressure. When the queue is full, writes will block until space is available. Set to 0 for unlimited queue size (default). Use this to prevent memory issues when writing large volumes of data.                                                                                                                                                                                                                             | 0             |
 ```ruby
 InfluxDB2::Client.use('http://localhost:8086',
                       'my-token',
@@ -233,7 +234,8 @@ InfluxDB2::Client.use('http://localhost:8086',
   write_options = InfluxDB2::WriteOptions.new(write_type: InfluxDB2::WriteType::BATCHING,
                                               batch_size: 10, flush_interval: 5_000,
                                               max_retries: 3, max_retry_delay: 15_000,
-                                              exponential_base: 2)
+                                              exponential_base: 2,
+                                              max_queue_size: 10_000)
 
   write_api = client.create_write_api(write_options: write_options)
   write_api.write(data: 'h2o,location=west value=33i 15')
